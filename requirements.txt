@@ -1,0 +1,5 @@
+pycocotools
+matplotlib
+scikit-image
+torch
+nltk
