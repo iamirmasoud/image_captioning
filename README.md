@@ -85,8 +85,6 @@ The project is structured as a series of Jupyter notebooks that should be run in
 
 This notebook initializes the [COCO API](https://github.com/cocodataset/cocoapi) (the "pycocotools" library) used to access data from the MS COCO (Common Objects in Context) dataset, which is "commonly used to train and benchmark object detection, segmentation, and captioning algorithms."
 
-
-
 ### [1. Architecture notebook](1_Architecture.ipynb) 
 
 This notebook uses the pycocotools, torchvision transforms, and NLTK to preprocess the images and the captions for network training. It also explores details of EncoderCNN, which is taken pretrained from [torchvision.models, the ResNet50 architecture](https://pytorch.org/docs/master/torchvision/models.html#id3). The implementations of the EncoderCNN and DecoderRNN are found in the [model.py](model.py) file.
@@ -207,14 +205,15 @@ COCO is a large image dataset designed for object detection, segmentation, perso
 In addition to this API, please download both the COCO images and annotations in order to run the demos and use the API. Both are available on the project website.
 - Please download, unzip, and place the images in: coco/images/
 - Please download and place the annotations in: coco/annotations/
+
 For substantially more details on the API please see [COCO Home Page](http://cocodataset.org/#home).
 
 After downloading the images and annotations, run the Matlab, Python, or Lua demos for example usage.
 
 To install:
--For Matlab, add coco/MatlabApi to the Matlab path (OSX/Linux binaries provided)
--For Python, run "make" under coco/PythonAPI
--For Lua, run “luarocks make LuaAPI/rocks/coco-scm-1.rockspec” under coco/
+- For Matlab, add coco/MatlabApi to the Matlab path (OSX/Linux binaries provided)
+- For Python, run "make" under coco/PythonAPI
+- For Lua, run “luarocks make LuaAPI/rocks/coco-scm-1.rockspec” under coco/
 
 
-Note: This project is a part of [Udacity Computer Vision Nanodegree Program](https://www.udacity.com/course/computer-vision-nanodegree--nd891)
+Note: This project is a part of [Udacity Computer Vision Nanodegree Program](https://www.udacity.com/course/computer-vision-nanodegree--nd891).
