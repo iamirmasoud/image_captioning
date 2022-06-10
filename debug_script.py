@@ -1,6 +1,4 @@
-import nltk
 import torch
-from pycocotools.coco import COCO
 from torchvision import transforms
 
 from data_loader import get_loader
@@ -26,12 +24,15 @@ vocab_threshold = 5
 # Specify the batch size.
 batch_size = 10
 
+cocoapi_dir = r"/media/masoud/F60C689F0C685C9D/immediate D/Course_Assignments/FINISHED/VISION/Udacity - " \
+              r"Computer Vision Nanodegree/PROJECTS/2 - IMAGE CAPTIONING/MY/"
+
 # Obtain the data loader (from file). Note that it runs much faster than before!
-# data_loader = get_loader(transform=transform_train,
-#                          mode='train',
-#                          batch_size=batch_size,
-#                          vocab_from_file=True,
-#                          cocoapi_loc='')
+data_loader = get_loader(transform=transform_train,
+                         mode='train',
+                         batch_size=batch_size,
+                         vocab_from_file=True,
+                         cocoapi_loc=cocoapi_dir)
 
 # # Obtain the batch.
 # images, captions = next(iter(data_loader))
@@ -51,20 +52,15 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Specify the dimensionality of the image embedding.
 image_embed_size = 256
 
-# -#-#-# Do NOT modify the code below this line. #-#-#-#
-
-# Initialize the encoder. (Optional: Add additional arguments if necessary.)
+# Initialize the encoder.
 encoder = EncoderCNN(image_embed_size)
 
 # Move the encoder to GPU if CUDA is available.
 encoder.to(device)
-# if torch.cuda.is_available():
-#     encoder = encoder.cuda()
 
 # # Move last batch of images (from Step 2) to GPU if CUDA is available.
 images = images.to(device)
-# if torch.cuda.is_available():
-#     images = Variable(images.cuda())
+
 
 # Pass the images through the encoder.
 features = encoder(images)
@@ -73,10 +69,10 @@ print("type(features):", type(features))
 print("features.shape:", features.shape)
 print("captions.shape:", captions.shape)
 
-# Check that your encoder satisfies some requirements of the project! :D
+# Check that the encoder satisfies some requirements of the project!
 assert type(features) == torch.Tensor, "Encoder output needs to be a PyTorch Tensor."
 
-assert (features.shape[0] == batch_size) & (
+assert (features.shape[0] == batch_size) and (
     features.shape[1] == image_embed_size
 ), "The shape of the encoder output is incorrect."
 
@@ -84,8 +80,8 @@ assert (features.shape[0] == batch_size) & (
 hidden_size = 512
 word_embed_size = image_embed_size
 # Store the size of the vocabulary.
-vocab_size = 8855
-# vocab_size = len(data_loader.dataset.vocab)
+# vocab_size = 8855
+vocab_size = len(data_loader.dataset.vocab)
 
 # Initialize the decoder.
 decoder = DecoderRNN(word_embed_size, hidden_size, vocab_size)
@@ -102,10 +98,10 @@ outputs = decoder(features, captions)
 print("type(outputs):", type(outputs))
 print("outputs.shape:", outputs.shape)
 
-# Check that your decoder satisfies some requirements of the project! :D
+# Check that the decoder satisfies some requirements of the project!
 assert type(outputs) == torch.Tensor, "Decoder output needs to be a PyTorch Tensor."
 assert (
     (outputs.shape[0] == batch_size)
-    & (outputs.shape[1] == captions.shape[1])
-    & (outputs.shape[2] == vocab_size)
+    and (outputs.shape[1] == captions.shape[1])
+    and (outputs.shape[2] == vocab_size)
 ), "The shape of the decoder output is incorrect."

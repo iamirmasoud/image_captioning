@@ -8,14 +8,14 @@ from pycocotools.coco import COCO
 
 class Vocabulary(object):
     def __init__(
-            self,
-            vocab_threshold,
-            vocab_file="./vocab.pkl",
-            start_word="<start>",
-            end_word="<end>",
-            unk_word="<unk>",
-            annotations_file="../cocoapi/annotations/captions_train2014.json",
-            vocab_from_file=False,
+        self,
+        vocab_threshold,
+        vocab_file="./vocab.pkl",
+        start_word="<start>",
+        end_word="<end>",
+        unk_word="<unk>",
+        annotations_file="../cocoapi/annotations/captions_train2014.json",
+        vocab_from_file=False,
     ):
         """Initialize the vocabulary.
         Args:
@@ -25,8 +25,8 @@ class Vocabulary(object):
           end_word: Special word denoting sentence end.
           unk_word: Special word denoting unknown words.
           annotations_file: Path for train annotation file.
-          vocab_from_file: If False, create vocab from scratch & override any existing vocab_file
-                           If True, load vocab from from existing vocab_file, if it exists
+          vocab_from_file: If False, create vocab from scratch and override any existing vocab_file
+                           If True, load vocab from existing vocab_file, if it exists
         """
         self.vocab_threshold = vocab_threshold
         self.vocab_file = vocab_file
@@ -39,11 +39,11 @@ class Vocabulary(object):
 
     def get_vocab(self):
         """Load the vocabulary from file OR build the vocabulary from scratch."""
-        if os.path.exists(self.vocab_file) & self.vocab_from_file:
+        if os.path.exists(self.vocab_file) and self.vocab_from_file:
             with open(self.vocab_file, "rb") as f:
                 vocab = pickle.load(f)
-                self.word2idx = vocab.word2idx
-                self.idx2word = vocab.idx2word
+            self.word2idx = vocab.word2idx
+            self.idx2word = vocab.idx2word
             print("Vocabulary successfully loaded from vocab.pkl file!")
 
         # create a new vocab file
@@ -68,7 +68,7 @@ class Vocabulary(object):
 
     def add_word(self, word):
         """Add a token to the vocabulary."""
-        if not word in self.word2idx:
+        if word not in self.word2idx:
             self.word2idx[word] = self.idx
             self.idx2word[self.idx] = word
             self.idx += 1
@@ -78,8 +78,8 @@ class Vocabulary(object):
         coco = COCO(self.annotations_file)
         counter = Counter()
         ids = coco.anns.keys()
-        for i, id in enumerate(ids):
-            caption = str(coco.anns[id]["caption"])
+        for i, idx in enumerate(ids):
+            caption = str(coco.anns[idx]["caption"])
             tokens = nltk.tokenize.word_tokenize(caption.lower())
             counter.update(tokens)
 

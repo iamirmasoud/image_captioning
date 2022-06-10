@@ -35,8 +35,8 @@ def get_loader(
       start_word: Special word denoting sentence start.
       end_word: Special word denoting sentence end.
       unk_word: Special word denoting unknown words.
-      vocab_from_file: If False, create vocab from scratch & override any existing vocab_file.
-                       If True, load vocab from from existing vocab_file, if it exists.
+      vocab_from_file: If False, create vocab from scratch and override any existing vocab_file.
+                       If True, load vocab from existing vocab_file, if it exists.
       num_workers: Number of subprocesses to use for data loading
       cocoapi_loc: The location of the folder containing the COCO API: https://github.com/cocodataset/cocoapi
     """
@@ -58,7 +58,7 @@ def get_loader(
             cocoapi_loc, "cocoapi/annotations/captions_train2014.json"
         )
     elif mode == "test":
-        assert batch_size == 1, "Please change batch_size to 1 if testing your model."
+        assert batch_size == 1, "Please change batch_size to 1 if testing the model."
         assert os.path.exists(
             vocab_file
         ), "Must first generate vocab.pkl from training data."
@@ -68,7 +68,7 @@ def get_loader(
             cocoapi_loc, "cocoapi/annotations/image_info_test2014.json"
         )
     elif mode == "valid":
-        assert batch_size == 1, "Please change batch_size to 1 if testing your model."
+        assert batch_size == 1, "Please change batch_size to 1 if testing the model."
         assert os.path.exists(
             vocab_file
         ), "Must first generate vocab.pkl from training data."
@@ -187,8 +187,8 @@ class CoCoDataset(data.Dataset):
         elif self.mode == "valid":
             path = self.paths[index]
             image_id = int(path.split("/")[0].split(".")[0].split("_")[-1])
-            PIL_image = Image.open(os.path.join(self.img_folder, path)).convert("RGB")
-            image = self.transform(PIL_image)
+            pil_image = Image.open(os.path.join(self.img_folder, path)).convert("RGB")
+            image = self.transform(pil_image)
 
             # return original image and pre-processed image tensor
             return image_id, image
@@ -197,9 +197,9 @@ class CoCoDataset(data.Dataset):
             path = self.paths[index]
 
             # Convert image to tensor and pre-process using transform
-            PIL_image = Image.open(os.path.join(self.img_folder, path)).convert("RGB")
-            orig_image = np.array(PIL_image)
-            image = self.transform(PIL_image)
+            pil_image = Image.open(os.path.join(self.img_folder, path)).convert("RGB")
+            orig_image = np.array(pil_image)
+            image = self.transform(pil_image)
 
             # return original image and pre-processed image tensor
             return orig_image, image

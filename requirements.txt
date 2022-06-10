@@ -1,5 +1,9 @@
-pycocotools
-matplotlib
+pycocotools~=2.0.4
+matplotlib~=3.5.2
 scikit-image
-torch
-nltk
+torch~=1.8.1
+nltk~=3.7
+torchvision~=0.9.1
+numpy~=1.21.6
+pillow~=9.1.1
+tqdm~=4.64.0
