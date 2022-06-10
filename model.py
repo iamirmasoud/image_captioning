@@ -25,13 +25,10 @@ class EncoderCNN(nn.Module):
 
 # --------- Decoder ----------
 
-# ---- MODELS PK-3
-
 
 class DecoderRNN(nn.Module):
     def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1):
         """
-
         Args:
             embed_size: final embedding size of the CNN encoder
             hidden_size: hidden size of the LSTM
@@ -117,7 +114,7 @@ class DecoderRNN(nn.Module):
             # if the predicted idx is the stop index, the loop stops
             if predicted_idx == 1:
                 break
-            inputs = self.embed(predicted_idx)  # inputs: (1, word_embed_size)
-            inputs = inputs.unsqueeze(1)  # inputs: (1, 1, word_embed_size)
+            inputs = self.embed(predicted_idx)  # inputs: (1, embed_size)
+            inputs = inputs.unsqueeze(1)  # inputs: (1, 1, embed_size)
 
         return res

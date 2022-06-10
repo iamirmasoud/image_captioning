@@ -109,7 +109,7 @@ In the project, we pass all our inputs as a sequence to an LSTM. A sequence look
 The LSTM is defined such that, as it sequentially looks at inputs, it expects that each individual input in a sequence is of a consistent size and so we embed the feature vector and each word so that they are `embed_size`.
 
 #### Using my trained model
-You can use my trained model in the `models` directory for your own experimentation.
+You can [download](https://drive.google.com/file/d/1s3aRAdt8ZMqn53UUSSFLCDBJ_F-KNbpE/view?usp=sharing) my trained models by unzipping the `captioning_models.zip` file in the `models` directory of project for your own experimentation.
 
 Feel free to experiment with alternative architectures, such as bidirectional LSTM with attention mechanisms!
 
@@ -120,7 +120,6 @@ This notebook provides the selection of hyperparameter values and EncoderRNN tra
 
 #### Parameters
 
-We begin by setting the following variables:
 - `batch_size` - the batch size of each training batch. It is the number of image-caption pairs used to amend the model weights in each training step. 
 - `vocab_threshold` - the minimum word count threshold. Note that a larger threshold will result in a smaller vocabulary, whereas a smaller threshold will include rarer words and result in a larger vocabulary. 
 - `vocab_from_file` - a Boolean that decides whether to load the vocabulary from file. 
@@ -180,27 +179,24 @@ This notebook contains the testing of the trained networks to generate captions 
 Here are some predictions from the model.
 
 ### Some good results
-![sample_171](samples/sample_171.png?raw=true)<br/>
-![sample_440](samples/sample_440.png?raw=true)<br/>
-![sample_457](samples/sample_457.png?raw=true)<br/>
-![sample_002](samples/sample_002.png?raw=true)<br/>
-![sample_029](samples/sample_029.png?raw=true)<br/>
-![sample_107](samples/sample_107.png?raw=true)<br/>
-![sample_202](samples/sample_202.png?raw=true)
+![sample_171](images/sample_171.png?raw=true)<br/>
+![sample_440](images/sample_440.png?raw=true)<br/>
+![sample_457](images/sample_457.png?raw=true)<br/>
+![sample_002](images/sample_002.png?raw=true)<br/>
+![sample_029](images/sample_029.png?raw=true)<br/>
+![sample_107](images/sample_107.png?raw=true)<br/>
+![sample_202](images/sample_202.png?raw=true)
 
 
 ### Some not so good results
 
-![sample_296](samples/sample_296.png?raw=true)<br/>
-![sample_008](samples/sample_008.png?raw=true)<br/>
-![sample_193](samples/sample_193.png?raw=true)<br/>
-![sample_034](samples/sample_034.png?raw=true)<br/>
-![sample_326](samples/sample_326.png?raw=true)<br/>
-![sample_366](samples/sample_366.png?raw=true)<br/>
-![sample_498](samples/sample_498.png?raw=true)
-
-### More samples
-There are more prediction samples in the samples folder.
+![sample_296](images/sample_296.png?raw=true)<br/>
+![sample_008](images/sample_008.png?raw=true)<br/>
+![sample_193](images/sample_193.png?raw=true)<br/>
+![sample_034](images/sample_034.png?raw=true)<br/>
+![sample_326](images/sample_326.png?raw=true)<br/>
+![sample_366](images/sample_366.png?raw=true)<br/>
+![sample_498](images/sample_498.png?raw=true)
 
 ## Future work
 Steps for additional improvement would be exploring the hyperparameter and other architectures and also training with more epochs.
