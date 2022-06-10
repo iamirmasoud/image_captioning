@@ -2,23 +2,24 @@ import os
 
 import nltk
 import torch.utils.data as data
+
 from coco_dataset import CoCoDataset
 
 nltk.download("punkt")
 
 
 def get_loader(
-        transform,
-        mode="train",
-        batch_size=1,
-        vocab_threshold=None,
-        vocab_file="./vocab.pkl",
-        start_word="<start>",
-        end_word="<end>",
-        unk_word="<unk>",
-        vocab_from_file=True,
-        num_workers=0,
-        cocoapi_loc="/opt",
+    transform,
+    mode="train",
+    batch_size=1,
+    vocab_threshold=None,
+    vocab_file="./vocab.pkl",
+    start_word="<start>",
+    end_word="<end>",
+    unk_word="<unk>",
+    vocab_from_file=True,
+    num_workers=0,
+    cocoapi_loc="/opt",
 ):
     """Returns the data loader.
     Args:
@@ -40,7 +41,7 @@ def get_loader(
 
     if not vocab_from_file:
         assert (
-                mode == "train"
+            mode == "train"
         ), "To generate vocab from captions file, must be in training mode (mode='train')."
 
     # Based on mode (train, val, test), obtain img_folder and annotations_file.
