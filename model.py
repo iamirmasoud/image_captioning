@@ -42,7 +42,7 @@ class DecoderRNN(nn.Module):
 
         # Assigning hidden dimension
         self.hidden_dim = hidden_size
-        # getting embed from nn.Embedding()
+        # Map each word index to a dense word embedding tensor of embed_size
         self.embed = nn.Embedding(vocab_size, embed_size)
         # Creating LSTM layer
         self.lstm = nn.LSTM(embed_size, hidden_size, num_layers, batch_first=True)
@@ -55,7 +55,7 @@ class DecoderRNN(nn.Module):
         """
         Args:
             features: features tensor. shape is (bs, embed_size)
-            captions: captions tensor. shape is (bs, length)
+            captions: captions tensor. shape is (bs, cap_length)
         Returns:
 
         """
@@ -63,16 +63,17 @@ class DecoderRNN(nn.Module):
         cap_embedding = self.embed(
             captions[:, :-1]
         )  # (bs, cap_length) -> (bs, cap_length-1, embed_size)
-        # concatenate the feature and caption embeddings.
+
+        # concatenate the images features to the first of caption embeddings.
         # [bs, embed_size] => [bs, 1, embed_size] concat [bs, cap_length-1, embed_size]
-        # => [10, 12, embed_size] add encoded image (features) as t=0
+        # => [bs, cap_length, embed_size] add encoded image (features) as t=0
         embeddings = torch.cat(
-            (features.unsqueeze(1), cap_embedding), 1
-        )  # (bs, cap_length-1, embed_size)
+            (features.unsqueeze(dim=1), cap_embedding), dim=1
+        )
 
         #  getting output i.e. score and hidden layer.
         # first value: all the hidden states throughout the sequence. second value: the most recent hidden state
-        lstm_out, self.hidden = self.lstm(embeddings)  # (bs, cap_length, hidden_size)
+        lstm_out, self.hidden = self.lstm(embeddings)  # (bs, cap_length, hidden_size), (1, bs, hidden_size)
         outputs = self.linear(lstm_out)  # (bs, cap_length, vocab_size)
 
         return outputs
@@ -95,8 +96,15 @@ class DecoderRNN(nn.Module):
 
     def sample(self, inputs, states=None, max_len=20):
         """
-        Accepts pre-processed image tensor (inputs) and returns predicted sentence
-        (list of tensor ids of length max_len)
+        accepts pre-processed image tensor (inputs) and returns predicted
+        sentence (list of tensor ids of length max_len)
+        Args:
+            inputs: shape is (1, 1, embed_size)
+            states:
+            max_len:
+
+        Returns:
+            res: list of tensor
         """
         res = []
 

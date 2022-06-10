@@ -92,7 +92,7 @@ decoder.to(device)
 # Move last batch of captions (from Step 1) to GPU if CUDA is available
 captions = captions.to(device)
 
-# Pass the encoder output and captions through the decoder.
+# Pass the encoder output and captions through the decoder. (bs, cap_len, vocab_size)
 outputs = decoder(features, captions)
 
 print("type(outputs):", type(outputs))

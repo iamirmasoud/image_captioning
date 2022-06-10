@@ -127,10 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-models/
 samples/
+models/
 images.pt
 captions.pt
-*.pkl
 .idea/
 debug_script.py

@@ -2,25 +2,23 @@ import os
 
 import nltk
 import torch.utils.data as data
-from torchvision import transforms
-
 from coco_dataset import CoCoDataset
 
 nltk.download("punkt")
 
 
 def get_loader(
-    transform,
-    mode="train",
-    batch_size=1,
-    vocab_threshold=None,
-    vocab_file="./vocab.pkl",
-    start_word="<start>",
-    end_word="<end>",
-    unk_word="<unk>",
-    vocab_from_file=True,
-    num_workers=0,
-    cocoapi_loc="/opt",
+        transform,
+        mode="train",
+        batch_size=1,
+        vocab_threshold=None,
+        vocab_file="./vocab.pkl",
+        start_word="<start>",
+        end_word="<end>",
+        unk_word="<unk>",
+        vocab_from_file=True,
+        num_workers=0,
+        cocoapi_loc="/opt",
 ):
     """Returns the data loader.
     Args:
@@ -42,7 +40,7 @@ def get_loader(
 
     if not vocab_from_file:
         assert (
-            mode == "train"
+                mode == "train"
         ), "To generate vocab from captions file, must be in training mode (mode='train')."
 
     # Based on mode (train, val, test), obtain img_folder and annotations_file.
@@ -106,37 +104,3 @@ def get_loader(
         )
 
     return data_loader
-
-
-if __name__ == "__main__":
-
-    # Define a transform to pre-process the training images.
-    transform_train = transforms.Compose(
-        [
-            transforms.Resize(256),  # smaller edge of image resized to 256
-            transforms.RandomCrop(224),  # get 224x224 crop from random location
-            transforms.RandomHorizontalFlip(),  # horizontally flip image with probability=0.5
-            transforms.ToTensor(),  # convert the PIL Image to a tensor
-            transforms.Normalize(
-                (0.485, 0.456, 0.406),  # normalize image for pre-trained model
-                (0.229, 0.224, 0.225),
-            ),
-        ]
-    )
-
-    # Set the minimum word count threshold.
-    vocab_threshold = 5
-
-    # Specify the batch size.
-    batch_size = 10
-
-    # Obtain the data loader.
-    data_loader = get_loader(
-        transform=transform_train,
-        mode="train",
-        batch_size=batch_size,
-        vocab_threshold=vocab_threshold,
-        vocab_from_file=False,
-        cocoapi_loc="",
-    )
-    print(data_loader)
