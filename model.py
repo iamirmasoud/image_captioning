@@ -24,8 +24,6 @@ class EncoderCNN(nn.Module):
 
 
 # --------- Decoder ----------
-
-
 class DecoderRNN(nn.Module):
     def __init__(self, embed_size, hidden_size, vocab_size, num_layers=1):
         """
@@ -54,6 +52,7 @@ class DecoderRNN(nn.Module):
             features: features tensor. shape is (bs, embed_size)
             captions: captions tensor. shape is (bs, cap_length)
         Returns:
+            outputs: scores of the linear layer
 
         """
         # remove <end> token from captions and embed captions
@@ -81,11 +80,11 @@ class DecoderRNN(nn.Module):
         sentence (list of tensor ids of length max_len)
         Args:
             inputs: shape is (1, 1, embed_size)
-            states:
-            max_len:
+            states: initial hidden state of the LSTM
+            max_len: maximum length of the predicted sentence
 
         Returns:
-            res: list of tensor
+            res: list of predicted words indices
         """
         res = []
 
