@@ -196,6 +196,22 @@ Here are some predictions from the model.
 ![sample_366](images/sample_366.png?raw=true)<br/>
 ![sample_498](images/sample_498.png?raw=true)
 
+## Deploy and share image captioning service using Gradio
+
+[Gradio](http://pytorch.org/docs/master/optim.html#torch.optim.Optimizer) is a package that allows users to create simple web apps with just a few lines of code. It is essentially used for the same purpose as Streamlight and Flask but is much simpler to utilize. Many types of web interface tools can be selected including sketchpad, text boxes, file upload buttons, webcam, etc. Using these tools to receive various types of data as input, machine learning tasks such as classification and regression can easily be demoed.
+
+You can deploy an interactive version of the image captioning service on your browser by running the following command. Please don't forget to set the `cocoapi_dir` and encoder/decoder model paths to the correct values.
+
+```shell
+python gradio_main.py
+```
+
+Access the service on local URL:  http://127.0.0.1:7860/
+
+![sample_498](images/gradio_demo.png)
+
+
+
 ## Future work
 Steps for additional improvement would be exploring the hyperparameter and other architectures and also training with more epochs.
 
